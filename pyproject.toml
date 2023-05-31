@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "zx99"
+version = "0.1.0"
+description = "IS projekt"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+image = "^1.5.33"
+dvc = "^2.58.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
