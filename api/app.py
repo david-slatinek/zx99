@@ -1,20 +1,25 @@
+import os
 import time
 from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from pymongo import MongoClient
 
 # python -m flask --debug run
 
 
-# client = MongoClient('mongodb+srv://test123:test123@cluster0.zy8ouhh.mongodb.net/?retryWrites=true&w=majority')
-# db = client.IISprojekt #slatinek spremeni pol ko boš mel povezavo
-# zivali = db.zivali
+load_dotenv()
+
+client = MongoClient(os.getenv("MONGO_URL"))
+db = client.get_database("zx99")
+collection = db.get_collection("animals")
 
 API_URL = "https://api-inference.huggingface.co/models/devMinty/zx99-animal-classifier"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer " + os.getenv("TOKEN")}
 
 app = Flask(__name__)
 CORS(app)
@@ -23,9 +28,7 @@ CORS(app)
 # default route
 @app.route('/')
 def starting():
-    return {
-        'ping': 'pong'
-    }
+    return {'ping': 'pong'}
 
 
 # predict based on picture returns most accurate prediction
@@ -68,13 +71,13 @@ def add_feedback():
     if not image or not predicted_label or not description:
         return "Missing data", 400
 
-    # zivali.insert_one({ #slatinek change this when baza is ready
-    #     'image': image,
-    #     'predicted_label': predicted_label,
-    #     'true_label': true_label if true_label else predicted_label,
-    #     'description': description,
-    #     'time': timestamp
-    # })
+    collection.insert_one({
+        'image': image,
+        'predicted_label': predicted_label,
+        'true_label': true_label if true_label else predicted_label,
+        'description': description,
+        'time': timestamp
+    })
 
     return "Thank you!", 201
 
