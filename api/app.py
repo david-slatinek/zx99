@@ -11,8 +11,6 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 # python -m flask --debug run
-
-
 load_dotenv()
 
 API_URL = "https://api-inference.huggingface.co/models/devMinty/zx99-animal-classifier"
@@ -29,6 +27,7 @@ def starting():
 
 
 # predict based on picture returns most accurate prediction
+# ker se HUGGING FACE server zaganja približno 20 sekund moramo ta čas čakati ali pa večkrat poslati zahtevo
 @app.route("/predict", methods=["POST"])
 def predict():
     if "image" not in request.files:
@@ -59,17 +58,22 @@ def predict():
 # route for user feedback based on prediction
 @app.route("/feedback", methods=["POST"])
 def add_feedback():
-    image = request.files["image"].read()
+    image = request.files["image"]
+
+    if not image:
+        return "No image found", 400
+
+    image_bytes = image.read()
     predicted_label = request.form["predicted_label"]
     true_label = request.form["true_label"]
     description = request.form["description"]
     timestamp = datetime.now()
 
-    if not image or not predicted_label or not description:
+    if not predicted_label or not description:
         return "Missing data", 400
 
     collection.insert_one({
-        "image": image,
+        "image": image_bytes,
         "predicted_label": predicted_label,
         "true_label": true_label if true_label else predicted_label,
         "description": description,

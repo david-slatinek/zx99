@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "5de69e7a-73cb-402d-8135-d6d103d4e806",
+		"name": "IS projekt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12104313"
+	},
+	"item": [
+		{
+			"name": "root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/F:/Faks/IPT MAG/1. letnik/2. semester/Inženirstvo inteligentnih sistemov/IIS-projekt/data/images/Gold fish/0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"predict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/F:/Faks/IPT MAG/1. letnik/2. semester/Inženirstvo inteligentnih sistemov/IIS-projekt/data/images/Gold fish/1.jpg"
+						},
+						{
+							"key": "predicted_label",
+							"value": "Dog",
+							"type": "text"
+						},
+						{
+							"key": "true_label",
+							"value": "Cat",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "This a cat...",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/feedback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wiki",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/F:/Faks/IPT MAG/1. letnik/2. semester/Inženirstvo inteligentnih sistemov/IIS-projekt/data/images/Gold fish/0.jpg"
+						},
+						{
+							"key": "predicted_label",
+							"value": "Dog",
+							"type": "text"
+						},
+						{
+							"key": "true_label",
+							"value": "Cat",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "This a cat...",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/wikitest/Dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"wikitest",
+						"Dog"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
