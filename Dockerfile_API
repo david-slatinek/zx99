@@ -1,0 +1,19 @@
+FROM python:3.10.7
+
+WORKDIR /app
+
+RUN pip install poetry
+ENV PATH="$PATH:/root/.poetry/bin"
+
+COPY ./pyproject.toml .
+RUN poetry install --no-dev --no-root
+
+COPY ./api/app.py .
+COPY ./api/.env .
+
+EXPOSE 5000
+
+CMD [ "poetry", "run", "python", "app.py" ]
+
+# docker build -t is-project-api:1.0 -f Dockerfile_API .
+# docker run -it -d -p 5000:5000 --name IS-PROJECT-API is-project-api:1.0
