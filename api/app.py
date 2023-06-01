@@ -1,3 +1,4 @@
+import base64
 import os
 import time
 from datetime import datetime
@@ -31,7 +32,7 @@ def starting():
 @app.route("/predict", methods=["POST"])
 def predict():
     if "image" not in request.files:
-        return "No image found", 400
+        return {"error": "image not found"}, 400
 
     image = request.files["image"]
     image_bytes = image.read()
@@ -61,26 +62,27 @@ def add_feedback():
     image = request.files["image"]
 
     if not image:
-        return "No image found", 400
+        return {"error": "image not found"}, 400
 
-    image_bytes = image.read()
+    image_bytes = base64.b64encode(image.read())
+
     predicted_label = request.form["predicted_label"]
     true_label = request.form["true_label"]
     description = request.form["description"]
     timestamp = datetime.now()
 
     if not predicted_label or not description:
-        return "Missing data", 400
+        return {"error": "missing data"}, 400
 
     collection.insert_one({
-        "image": image_bytes,
+        "image": image_bytes.decode("utf-8"),
         "predicted_label": predicted_label,
         "true_label": true_label if true_label else predicted_label,
         "description": description,
         "time": timestamp
     })
 
-    return "Thank you!", 201
+    return {"message": "Thank you!"}, 201
 
 
 # route that gets some info about animal based on prediction
@@ -101,13 +103,13 @@ def wikitest(animal):
 
     url = "https://en.wikipedia.org/wiki/" + animal
     if requests.get(url).status_code != 200:
-        return jsonify({"paragraph": "No information found for used search parameter"})
+        return jsonify({"paragraph": "no information found for used search parameter"})
     else:
         response = requests.get("https://en.wikipedia.org/wiki/" + animal)
         soup = BeautifulSoup(response.content, "html.parser")
         paragraphs = soup.find_all("p")
 
-        paragraph_text = "No information found"
+        paragraph_text = "no information found"
 
         for paragraph in paragraphs:
             if animal in paragraph.get_text():
