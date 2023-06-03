@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
+import './ImageUploader.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Facts from './Facts';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 
 const ImageUploader = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -13,8 +11,18 @@ const ImageUploader = () => {
   const [feedbackComment, setFeedbackComment] = useState('');
   const [feedbackLabel, setFeedbackLabel] = useState('');
 
+  const [imagePreview, setImagePreview] = useState(null);
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+  
+    if (file) {
+      reader.readAsDataURL(file);
+    }
     setSelectedImage(file);
   };
 
@@ -57,39 +65,53 @@ const ImageUploader = () => {
         setFeedbackComment('');
         setFeedbackLabel('');
       } catch (error) {
-        // Handle errors
         console.error('Error:', error);
       }
   };
 
   return (
-    <div>
-      <h2>IS projekt</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        <button type="submit">Upload</button>
+    <div className='ImageUploader'>
+      <h2>Predicting animal from image</h2>
+      {imagePreview && (
+        <div className='image-container'>
+          <img src={imagePreview} alt="Preview" id='preview-image'/>
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className='form'>
+        <input type="file" accept="image/*" onChange={handleImageChange} id='file'/>
+        <label htmlFor='file' className='label-file'>
+        <i className="fa-solid fa-image"></i> &nbsp;
+          Choose an Image
+          </label>
+        <br />
+        {selectedImage && (
+          <button type="submit" className='button'>Upload</button>
+        )}
       </form>
       {prediction && (
         <>
-            <p>
+            <h2>
             Prediction: {prediction} | Score: {score} %
-            </p>
-            <Link to={{ pathname: `/facts/${prediction}`, state: { prediction } }}>
-                View Facts {prediction}
+            </h2>
+            <Link to={{ pathname: `/facts/${prediction}`, state: { prediction } }} className='link'>
+                View Facts about {prediction}
             </Link>
-            <input
-                type="text"
-                placeholder="Comment"
-                value={feedbackComment}
-                onChange={(e) => setFeedbackComment(e.target.value)}
-              />
+            <form className='feedback-form'>
               <input
-                type="text"
-                placeholder="True label"
-                value={feedbackLabel}
-                onChange={(e) => setFeedbackLabel(e.target.value)}
-              />
-            <button onClick={handleFeedbackSubmit}>Stisni me</button>
+                  type="text"
+                  placeholder="True label"
+                  value={feedbackLabel}
+                  onChange={(e) => setFeedbackLabel(e.target.value)}
+                />
+              <input
+                  type="text"
+                  placeholder="Comment"
+                  value={feedbackComment}
+                  onChange={(e) => setFeedbackComment(e.target.value)}
+                />
+                
+              <button onClick={handleFeedbackSubmit} className='button'>Feedback</button>
+            </form>
         </>
       )}
     </div>

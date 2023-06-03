@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './Facts.css'
+import { Link } from 'react-router-dom';
 
 
 const Facts = () => {
@@ -20,13 +22,16 @@ const Facts = () => {
         fetchFacts();
     },[])
 
-
-
     return (
-    <div>
-        <h2>Facts {animal}</h2>
+    <div className='facts'>
+        <h2>Facts about {animal}</h2>
         {facts &&
+        <>
             <p>{facts}</p>
+            <Link to={{ pathname: `/`}} className='link'>
+                Back
+            </Link>
+        </>
         }
     </div>
     );
