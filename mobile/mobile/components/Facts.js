@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './Facts.css'
+//import './Facts.css'
 import { Link } from 'react-router-dom';
 
 

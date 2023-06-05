@@ -22,7 +22,9 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "react-native-web": "~0.18.10",
-    "@expo/webpack-config": "^18.0.1"
+    "@expo/webpack-config": "^18.0.1",
+    "@react-navigation/native": "^5.9.8",
+    "@react-navigation/stack": "^5.14.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

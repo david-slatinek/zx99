@@ -1,17 +1,17 @@
-import './Header.css'
+//import './Header.css'
 import { Link } from 'react-router-dom';
+import Text, { SafeAreaView, View } from "react-native";
 
 
-const Header = () => {
+const Header = ({}) => {
     return(
-        <header className="Header">
-            <a className='naslov'>zx99</a>
-            <div className="header-right">
-                <a><Link to={"/"}>Home</Link></a>
-                <a><Link to={"/about"}>About</Link></a>
-            </div>
-        </header>
+        <SafeAreaView>
+        <View className="Header">
+            <Text className='naslov'>zx99</Text>
+            
+        </View>
+        </SafeAreaView>
     )
 }
 
-export default Header
+export default Header;
