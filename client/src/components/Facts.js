@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import './Facts.css'
 import { Link } from 'react-router-dom';
 
-
-const Facts = () => {
+const Facts = ( {fact} ) => {
     const {animal} = useParams();
     const [facts, setFacts] = useState('')
 

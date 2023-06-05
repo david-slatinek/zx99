@@ -8,6 +8,8 @@ const ImageUploader = () => {
   const [prediction, setPrediction] = useState('');
   const [score, setScore] = useState(0);
 
+  const [facts, setFacts] = useState('')
+
   const [feedbackComment, setFeedbackComment] = useState('');
   const [feedbackLabel, setFeedbackLabel] = useState('');
 
@@ -37,11 +39,13 @@ const ImageUploader = () => {
       formData.append('image', selectedImage);
 
       const response = await axios.post('http://localhost:5000/predict', formData);
-
-    console.log('Prediction result:', response.data.prediction.label);
-    setPrediction(response.data.prediction.label)
-    console.log('Prediction result:', response.data.prediction.score);
-    setScore(response.data.prediction.score.toFixed(4) * 100)
+      // console.log(response.data)
+      // console.log('Prediction result:', response.data.prediction);
+      setPrediction(response.data.prediction)
+      // console.log(response.data.fun_fact)
+      setFacts(response.data.fun_fact)
+      // console.log('Prediction result:', response.data.prediction.score);
+      // setScore(response.data.prediction.score.toFixed(4) * 100)
 
     } catch (error) {
       console.error('Error:', error);
@@ -91,10 +95,14 @@ const ImageUploader = () => {
       {prediction && (
         <>
             <h2>
-            Prediction: {prediction} | Score: {score} %
+            Prediction: {prediction} 
             </h2>
-            <Link to={{ pathname: `/facts/${prediction}`, state: { prediction } }} className='link'>
+            {/* <Link to={{ pathname: `/facts/${prediction}`, state: { prediction } }} className='link'>
                 View Facts about {prediction}
+            </Link> */}
+             {/* state: { prediction, facts } */}
+            <Link to={{ pathname: `/facts/${prediction}` }} className='link'> 
+              {(facts).length <= 30 ? facts : `View facts about ${prediction}: ${facts.slice(0,30)} ...`}
             </Link>
             <form className='feedback-form'>
               <input
@@ -109,7 +117,7 @@ const ImageUploader = () => {
                   value={feedbackComment}
                   onChange={(e) => setFeedbackComment(e.target.value)}
                 />
-                
+                <br />
               <button onClick={handleFeedbackSubmit} className='button'>Feedback</button>
             </form>
         </>
