@@ -45,8 +45,9 @@ def predict():
 
         response = requests.post(API_URL, headers=headers, data=image_bytes)
 
-    ff = wikitest(response.json()[0])
-    prediction = response.json()[0]
+    ff = wiki_scrape(response.json()[0]['label'])
+
+    prediction = response.json()[0]['label']
 
     result = {
         "prediction": prediction,
@@ -88,6 +89,11 @@ def add_feedback():
 # route that gets some info about animal based on prediction
 @app.route("/wikitest/<animal>", methods=["POST"])
 def wikitest(animal):
+    paragraph_text = wiki_scrape(animal)
+    return jsonify({"paragraph": paragraph_text})
+
+
+def wiki_scrape(animal):
     if " " in animal:
         animals = animal.split(" ")
         animals[0] = animals[0].capitalize()
@@ -147,7 +153,7 @@ def wikitest(animal):
                     paragraph_text = paragraph_text.replace("[6]", "")
                     break
 
-        return jsonify({"paragraph": paragraph_text})
+        return paragraph_text
 
 
 if __name__ == "__main__":
