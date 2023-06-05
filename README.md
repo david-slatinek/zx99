@@ -114,9 +114,9 @@ Prispeval:
 # Razdelitev dela
 
 <div align="center">
-  <img src="img/tasks.png" alt="Zadolžitve na projektu">
+  <img src="img/tasks.png" alt="Zadolžitve pri projektu">
   <br/>
-  <i>Zadolžitve na projektu.</i>
+  <i>Zadolžitve pri projektu.</i>
 </div>
 
 # Viri
