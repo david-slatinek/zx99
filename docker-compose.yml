@@ -1,13 +1,14 @@
-version: '3.9'
+version: "3.9"
+
 services:
   rest-api:
     image: is-project-api:1.0
     container_name: IS-Projekt-API
     ports:
-      - 5000:5000
+      - "5000:5000"
 
   web-app:
     image: is-project-web:1.0
     container_name: IS-Projekt-WEB
     ports:
-      - 3000:3000
+      - "3000:3000"
