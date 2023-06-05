@@ -1,6 +1,6 @@
 .ImageUploader {
     background-color: white;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -9,6 +9,7 @@
     min-width: 450px;
     box-shadow: 0 20px 35px rgba(0,0,0,0.5);
     padding: 50px 30px;
+    margin-top: 80px;
 }
 
 input[type='file']{

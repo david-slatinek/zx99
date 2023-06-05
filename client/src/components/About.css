@@ -1,0 +1,14 @@
+.about {
+    background-color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 7px;
+    width: 60%;
+    min-width: 450px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+    padding: 50px 30px;
+    text-align: center;
+}
+
