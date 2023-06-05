@@ -1,0 +1,67 @@
+.ImageUploader {
+    background-color: white;
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 7px;
+    width: 80%;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+    padding: 50px 30px;
+    margin-top: 80px;
+}
+
+input[type='file']{
+    display: none;
+}
+
+#preview-image{
+    max-width: 100%;
+    max-height: 400px;
+    position: relative;
+    margin: auto;
+}
+
+.image-container{
+    width: 90%;
+    margin: 0 auto 30px auto;
+}
+
+.label-file{
+    display: block;
+    background-color: #025bee;
+    color: #ffffff;
+    font-size: 18px;
+    border-radius: 7px;
+    width: 250px;
+    padding: 18px 0;
+    margin: auto;
+    cursor: pointer;
+}
+
+.button{
+    background-color: #025bee;
+    color: #ffffff;
+    font-size: 18px;
+    border-radius: 7px;
+    width: 250px;
+    padding: 18px 0;
+    margin: auto;
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+}
+
+input[type='text']{
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-size: 18px;
+    height: 100%;
+    /* outline: 0; */
+    padding: 4px 20px 0;
+    width: 80%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
