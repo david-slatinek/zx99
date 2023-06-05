@@ -1,0 +1,14 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY ./client/ .
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "start" ]
+
+# docker build -t is-project-web:1.0 -f Dockerfile_WEB .
+# docker run -it -d -p 3000:3000 --name IS-PROJECT-WEB is-project-web:1.0
